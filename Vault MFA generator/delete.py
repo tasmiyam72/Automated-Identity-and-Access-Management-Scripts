@@ -1,64 +1,83 @@
-import os
-import requests
 import time
-import hvac
 from pprint import pprint
+
+import hvac
+import requests
 from dotenv import load_dotenv
-from logger import get_logger
+from loguru import logger
 
 load_dotenv(verbose=True)
 
-logger = get_logger("okta-mfa", level=os.environ.get("LOG_LEVEL", "INFO"))
-
-def get_vault_client():
-    """
-    Authenticates to Vault and create a session
-    """
-    client = hvac.Client(url=os.environ["VAULT_URL"])
-    client.token = os.environ["VAULT_TOKEN"]
-    if not client.is_authenticated():
-        raise ValueError(f"Invalid vault credentials")
-    logger.info("Vault client created")
-    return client
+# VAULT_TOKEN = os.environ["VAULT_TOKEN"]
+# VAULT_URL = os.environ["VAULT_ADDR"]
+# MOUNT_POINT = os.environ["MOUNT_POINT_TOTP"]
 
 
-def list_all_vault_totp_keys(vault_client: hvac.Client, mount_point: str = "okta-mfa") -> list:
-    vault_url = os.environ["VAULT_URL"]
+VAULT_URL = "https://vault.customappsteam.co.uk"
+MOUNT_POINT = "okta-mfa"
+ROLE_ID = " "
+SECRET_ID = ""
+
+
+# def vault_authentication_client() -> hvac.Client:
+#     vault_client = hvac.Client(url=VAULT_URL, token=VAULT_TOKEN, strict_http=True)
+#     logger.info(f"Is the client authenticated: {vault_client.is_authenticated()}")
+#     if vault_client.is_authenticated():
+#         logger.info("token is valid")
+#         return vault_client
+#     raise ValueError("invalid or missing vault token")
+
+
+def vault_authentication_client():
+    vault_client = hvac.Client(url=VAULT_URL, strict_http=True)
+    vault_client.auth.approle.login(role_id=ROLE_ID, secret_id=SECRET_ID)
+    logger.info(f"Is the client authenticated: {vault_client.is_authenticated()}")
+    if vault_client.is_authenticated():
+        logger.info("vault app role is valid")
+    else:
+        raise ValueError("invalid or missing vault token")
+    return vault_client
+
+
+def list_all_vault_totp_keys(
+    vault_client: hvac.Client, vault_url, mount_point: str
+) -> list:
     request_url = f"{vault_url}/v1/{mount_point}/keys"
     request_header = {"X-Vault-Token": vault_client.token}
-
     response = requests.request("LIST", request_url, headers=request_header)
-
+    pprint(response.text)
     if response.status_code == 200:
-
-        return response.json()
+        pprint(response.text.json())
+        return response.json()["data"]["keys"]
     else:
         return []
 
 
-def delete_vault_totp(vault_client: hvac.Client, vault_totp_key: str, mount_point: str = "okta-mfa") -> bool:
-    vault_url = os.environ["VAULT_URL"]
+def delete_vault_totp(
+    vault_client: hvac.Client, vault_totp_key: str, vault_url: str, mount_point: str
+) -> bool:
     request_url = f"{vault_url}/v1/{mount_point}/keys/{vault_totp_key}"
     request_header = {"X-Vault-Token": vault_client.token}
-
     response = requests.request("DELETE", request_url, headers=request_header)
-
     time.sleep(2.5)
-
     if response.status_code in (200, 204):
         return True
     else:
         return False
 
 
-vault_client = get_vault_client()
+def main():
+    vault_client = vault_authentication_client()
+    list_of_all_vault_totp_keys = list_all_vault_totp_keys(
+        vault_client, VAULT_URL, MOUNT_POINT
+    )
+    for vault_keys in list_of_all_vault_totp_keys:
+        delete_keys = delete_vault_totp(vault_client, vault_keys, VAULT_URL)
+        if delete_keys:
+            logger.info("keys deleted")
+        else:
+            logger.info("failed to delete")
 
-list_of_all_vault_totp_keys = list_all_vault_totp_keys(vault_client)
 
-for vault_keys in list_of_all_vault_totp_keys["data"]["keys"]:
-    delete_keys = delete_vault_totp(vault_client, vault_keys)
-
-    if delete_keys:
-        pprint("DELETED")
-    else:
-        pprint("FAILED TO DELETE")
+if __name__ == "__main__":
+    main()

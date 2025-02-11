@@ -1,0 +1,47 @@
+name: Delete all TOTP keys
+
+on:
+   workflow_dispatch:
+    inputs:
+      platform:
+        required: true
+        type: choice
+        description: Please select the platform.
+        options:
+          - Azure
+          - Okta
+
+env:
+    VAULT_ADDR: https://vault.customappsteam.co.uk
+    GITHUB_OIDC_ROLE_NAME: ce-devsecops-github-oidc-role
+
+permissions:
+  id-token: write  # Required for requesting the JWT token from GitHubs OIDC provider
+  contents: read  # This is required for actions/checkout
+
+jobs:
+  azure_mfa_onboarding:
+    runs-on: pcoe-runner-linux-small-prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Configure Vault for Python script
+        id: vault-login
+        uses: KPMG-UK/github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
+        with:
+          vault_addr: ${{ env.VAULT_ADDR }}
+          role_name: ${{ env.GITHUB_OIDC_ROLE_NAME }}
+
+      - name: Set Vault token as environment variable
+        run: |
+          echo "VAULT_TOKEN=${{ steps.vault-login.outputs.vault_token }}" >> $GITHUB_ENV
+          
+      - name: Install Python script dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script to delete select TOTP keys
+        env:
+            VAULT_TOKEN: "${{ env.VAULT_TOKEN }}"
+            MOUNT_POINT_TOTP: ${{ inputs.platform == 'Azure' && 'azure-mfa' || inputs.platform == 'Okta' && 'okta-mfa'}}
+        run: python -m mfa_generator.delete

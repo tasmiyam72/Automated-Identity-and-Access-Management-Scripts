@@ -1,0 +1,52 @@
+name: MFA TOTP Generator Script
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 10 * * 1-5'
+
+env:
+    VAULT_ADDR: https://vault.customappsteam.co.uk
+    GITHUB_OIDC_ROLE_NAME: ce-devsecops-github-oidc-role
+    MOUNT_POINT_SECRETS: kv-v2
+
+permissions:
+  id-token: write  # Required for requesting the JWT token from GitHubs OIDC provider
+  contents: read  # This is required for actions/checkout
+
+jobs:
+  azure_mfa_onboarding:
+    runs-on: pcoe-runner-linux-small-prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Configure Vault for Python script
+        id: vault-login
+        uses: KPMG-UK/github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
+        with:
+          vault_addr: ${{ env.VAULT_ADDR }}
+          role_name: ${{ env.GITHUB_OIDC_ROLE_NAME }}
+
+      - name: Set Vault token as environment variable
+        run: |
+          echo "VAULT_TOKEN=${{ steps.vault-login.outputs.vault_token }}" >> $GITHUB_ENV
+          
+      - name: Install Python script dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Azure script for Azure
+        env:
+            VAULT_TOKEN: "${{ env.VAULT_TOKEN }}"
+            TOTP_ISSUER: Microsoft
+            MOUNT_POINT_TOTP: azure-mfa
+            TARGET_FOLDER: devsecops/azure_breakglass
+        run: python -m mfa_generator.main
+
+      - name: Run script for Okta
+        env:
+            VAULT_TOKEN: "${{ env.VAULT_TOKEN }}"
+            TOTP_ISSUER: Okta
+            MOUNT_POINT_TOTP: okta-mfa
+            TARGET_FOLDER: devsecops/okta_breakglass
+        run: python -m mfa_generator.main
