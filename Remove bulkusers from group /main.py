@@ -9,11 +9,11 @@ def get_secret(key: str, WithDecryption: bool = True):
     resp = client.get_parameter(Name=key, WithDecryption=True)
     return resp["Parameter"]["Value"]
 
-client_id= "c04433b0-6c3d-4d98-a819-a070c62625f5"
-client_secret= "6Eu8Q~3fgeFKuYjt0_zBUrw8zmcAghk3SO13SbpS"
-tenant_id= "a4d4d5cd-20cf-444e-bfe7-3d3ecef3fe94"
+client_id= " "
+client_secret= " "
+tenant_id= " "
 GRAPH_API_URL ="https://graph.microsoft.com/.default"
-GROUP_ID= "e6f756a6-a616-4668-89a2-9d5361f16241"
+GROUP_ID= " "
 
 
 def get_access_token(client_id, client_secret, tenant_id, GRAPH_API_URL):
