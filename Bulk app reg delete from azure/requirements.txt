@@ -1,0 +1,7 @@
+pip==24.2
+boto3
+requests
+msal
+pytest
+pytest-env
+python-dotenv==1.0.0
