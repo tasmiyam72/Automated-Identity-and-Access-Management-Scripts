@@ -10,8 +10,6 @@ Available Scripts
 
 1️⃣ Bulk Application Registration Deletion (Azure AD)
 
-📌 Script: bulk_app_reg_delete.py
-
 🔹 Purpose: Automates the process of removing multiple application registrations from Azure AD in one go.
 
 🔹 Key Features:
@@ -31,8 +29,6 @@ Authenticates with Azure AD.
 Deletes all specified applications automatically.
 
 2️⃣ Remove Bulk Users from Okta Tenant
-
-📌 Script: remove_bulk_users_okta.py
 
 🔹 Purpose: Automates bulk user removal from an Okta Tenant, reducing the need for manual intervention.
 
@@ -54,8 +50,6 @@ Deletes users from the Okta tenant in bulk.
 
 3️⃣ Remove Bulk Users from an Azure AD Group
 
-📌 Script: remove_bulk_users_group.py
-
 🔹 Purpose: Removes multiple users from an Azure AD Group to maintain security and access control.
 
 🔹 Key Features:
@@ -75,8 +69,6 @@ Authenticates with Azure AD.
 Removes each user from the specified group.
 
 4️⃣ Vault MFA Key Generator
-
-📌 Script: vault_mfa_generator.py
 
 🔹 Purpose: Automates MFA key creation, retrieval, and deletion in HashiCorp Vault, ensuring secure authentication practices.
 
