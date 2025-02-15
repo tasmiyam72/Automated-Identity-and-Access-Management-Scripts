@@ -8,7 +8,7 @@ Each script automates a specific IAM process, reducing manual effort, improving 
 
 ## Available Scripts
 
-1️⃣ _**Bulk Application Registration Deletion (Azure AD)**_
+1️⃣ **Bulk Application Registration Deletion (Azure AD)**
 
 🔹 Purpose: Automates the process of removing multiple application registrations from Azure AD in one go.
 
@@ -28,7 +28,7 @@ Authenticates with Azure AD.
 
 Deletes all specified applications automatically.
 
-2️⃣ _**Remove Bulk Users from Okta Tenant**__
+2️⃣ **Remove Bulk Users from Okta Tenant**
 
 🔹 **Purpose**: Automates bulk user removal from an Okta Tenant, reducing the need for manual intervention.
 
@@ -48,7 +48,7 @@ Authenticates with Okta API.
 
 Deletes users from the Okta tenant in bulk.
 
-3️⃣_ **Remove Bulk Users from an Azure AD Group**_
+3️⃣ **Remove Bulk Users from an Azure AD Group**
 
 🔹 **Purpose: **Removes multiple users from an Azure AD Group to maintain security and access control.
 
@@ -68,7 +68,7 @@ Authenticates with Azure AD.
 
 Removes each user from the specified group.
 
-4️⃣ _**Vault MFA Key Generator**_
+4️⃣ **Vault MFA Key Generator**
 
 🔹 **Purpose:** Automates MFA key creation, retrieval, and deletion in HashiCorp Vault, ensuring secure authentication practices.
 
