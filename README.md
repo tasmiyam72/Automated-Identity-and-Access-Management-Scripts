@@ -88,12 +88,13 @@ Lists stored MFA secrets.
 
 Processes keys and removes outdated ones as needed.
 
-##  Why Use These Scripts?
+## Why Use These Scripts?
 
-✅ **Automated & Efficient: Reduces manual effort by handling bulk operations. 
-✅ **Secure & Compliant: Uses APIs to ensure safe and authenticated execution.
-✅ **Scalable: Designed for enterprise-level identity and access management.
-✅ **Time-Saving: Eliminates repetitive tasks, freeing up IT resources.
+✅ **Automated & Efficient**: Reduces manual effort by handling bulk operations.  
+✅ **Secure & Compliant**: Uses APIs to ensure safe and authenticated execution.  
+✅ **Scalable**: Designed for enterprise-level identity and access management.  
+✅ **Time-Saving**: Eliminates repetitive tasks, freeing up IT resources.  
+
 
 # 🚀 Getting Started
 
