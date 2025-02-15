@@ -8,7 +8,7 @@ Each script automates a specific IAM process, reducing manual effort, improving 
 
 ## Available Scripts
 
-1️⃣ _**Bulk Application Registration Deletion (Azure AD)**__
+1️⃣ _**Bulk Application Registration Deletion (Azure AD)**_
 
 🔹 Purpose: Automates the process of removing multiple application registrations from Azure AD in one go.
 
