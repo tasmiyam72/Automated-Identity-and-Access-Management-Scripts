@@ -17,12 +17,12 @@ SCOPE = "https://graph.microsoft.com/.default"
 
 
 def azure_ad_access_token(
-    DSO_CLIENT_ID: str, DSO_CLIENT_SECRET: str, TENANT_ID: str, SCOPE: str
+    CLIENT_ID: str, CLIENT_SECRET: str, TENANT_ID: str, SCOPE: str
 ):
     app = msal.ConfidentialClientApplication(
-        DSO_CLIENT_ID,
+        CLIENT_ID,
         authority=f"https://login.microsoftonline.com/{TENANT_ID}",
-        client_credential=DSO_CLIENT_SECRET,
+        client_credential=CLIENT_SECRET,
     )
     result = app.acquire_token_for_client(scopes=[SCOPE])
     if "access_token" in result:
