@@ -117,7 +117,7 @@ python bulk_app_reg_delete.py  # Delete Azure AD app registrations
 python remove_bulk_users_okta.py  # Remove users from Okta
 python remove_bulk_users_group.py  # Remove users from an Azure AD Group
 python vault_mfa_generator.py  # Generate and delete MFA keys in Vault
-
+```
 
 ## 🤝 Contributing
 
