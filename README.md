@@ -10,7 +10,7 @@ Each script automates a specific IAM process, reducing manual effort, improving 
 
 1️⃣ **Bulk Application Registration Deletion (Azure AD)**
 
-🔹 Purpose: Automates the process of removing multiple application registrations from Azure AD in one go.
+🔹 **Purpose:** Automates the process of removing multiple application registrations from Azure AD in one go.
 
 🔹 **Key Features:**
 
@@ -30,7 +30,7 @@ Deletes all specified applications automatically.
 
 2️⃣ **Remove Bulk Users from Okta Tenant**
 
-🔹 **Purpose**: Automates bulk user removal from an Okta Tenant, reducing the need for manual intervention.
+🔹 **Purpose:** Automates bulk user removal from an Okta Tenant, reducing the need for manual intervention.
 
 🔹 **Key Features:**
 
@@ -50,7 +50,7 @@ Deletes users from the Okta tenant in bulk.
 
 3️⃣ **Remove Bulk Users from an Azure AD Group**
 
-🔹 **Purpose: **Removes multiple users from an Azure AD Group to maintain security and access control.
+🔹 **Purpose:** Removes multiple users from an Azure AD Group to maintain security and access control.
 
 🔹 **Key Features:**
 
