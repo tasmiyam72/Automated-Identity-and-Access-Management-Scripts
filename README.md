@@ -111,12 +111,13 @@ Processes keys and removes outdated ones as needed.
 
 Run the respective script based on your requirements:
 
-```python
+(```python
 python bulk_app_reg_delete.py  # Delete Azure AD app registrations
 python remove_bulk_users_okta.py  # Remove users from Okta
 python remove_bulk_users_group.py  # Remove users from an Azure AD Group
 python vault_mfa_generator.py  # Generate and delete MFA keys in Vault
-``` 
+
+``` )
 
 ## 🤝 Contributing
 
@@ -125,5 +126,7 @@ We welcome contributions! Feel free to open an issue or submit a pull request to
 ## Disclaimer
 
 🚀 Automate IAM tasks, enhance security, and save time with these Python scripts! 🔐
+
+
 
 
