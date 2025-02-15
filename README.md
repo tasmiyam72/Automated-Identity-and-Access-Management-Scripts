@@ -111,7 +111,7 @@ Processes keys and removes outdated ones as needed.
 
 Run the respective script based on your requirements:
 
-```python
+```bash
 
 python bulk_app_reg_delete.py  # Delete Azure AD app registrations
 python remove_bulk_users_okta.py  # Remove users from Okta
