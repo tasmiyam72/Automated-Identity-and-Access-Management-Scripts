@@ -72,7 +72,7 @@ Removes each user from the specified group.
 
 🔹 **Purpose:** Automates MFA key creation, retrieval, and deletion in HashiCorp Vault, ensuring secure authentication practices.
 
-🔹** Key Features:**
+🔹 **Key Features:**
 
 Uses HashiCorp Vault API for secure MFA key storage.
 
