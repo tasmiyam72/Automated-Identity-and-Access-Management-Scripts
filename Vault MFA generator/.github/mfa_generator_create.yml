@@ -7,7 +7,7 @@ on:
 
 env:
     VAULT_ADDR: https://vault.customappsteam.co.uk
-    GITHUB_OIDC_ROLE_NAME: ce-devsecops-github-oidc-role
+    GITHUB_OIDC_ROLE_NAME: github-oidc-role
     MOUNT_POINT_SECRETS: kv-v2
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
         
       - name: Configure Vault for Python script
         id: vault-login
-        uses: KPMG-UK/github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
+        uses: github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
         with:
           vault_addr: ${{ env.VAULT_ADDR }}
           role_name: ${{ env.GITHUB_OIDC_ROLE_NAME }}

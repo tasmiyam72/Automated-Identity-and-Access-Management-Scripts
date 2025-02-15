@@ -28,7 +28,7 @@ jobs:
         
       - name: Configure Vault for Python script
         id: vault-login
-        uses: KPMG-UK/github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
+        uses: github-actions-library/.github/actions/vault-login-github-oidc@feature/dso-iam
         with:
           vault_addr: ${{ env.VAULT_ADDR }}
           role_name: ${{ env.GITHUB_OIDC_ROLE_NAME }}

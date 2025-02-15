@@ -7,7 +7,7 @@ TOKENS: dict = {}
 
 
 def get_api_token(tenant: str, session):
-    secret_path = f"/okta/iam/api-token/kpmg-uk.oktapreview.com"
+    secret_path = f"/okta/iam/api-token/{okta_tenant_url}"
     api_token = get_secret_with_session(secret_path, session)
     print(f"API token fetched for {tenant}")
     return api_token
@@ -37,14 +37,14 @@ def request_okta(url: str, request_type: str = "GET"):
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "SSWS 00t3lKi7v-PXtKl4akAfA-TLEjqrRPvijND3_ypQc2",
+        "Authorization": "SSWS {token}",
     }
     return requests.request(request_type, url, headers=headers)
 
 
 def get_user_status(user_id: str, user_email: str) -> str:
     print(f"Retrieving status of {user_id} from tenant")
-    url = f"https://kpmg-uk.oktapreview.com/api/v1/users/{user_id}"
+    url = f"https://{okta_tenant_url}/api/v1/users/{user_id}"
     resp = request_okta(url)
     if resp.status_code == 200:
         if user_email.lower() == resp.json()["profile"]["email"].lower():
@@ -66,7 +66,7 @@ def get_user_status(user_id: str, user_email: str) -> str:
 
 
 def deactivate_user(user_id, user_email) -> int:
-    url = f"https://kpmg-uk.oktapreview.com/api/v1/users/{user_id}/lifecycle/deactivate"
+    url = f"https://{okta_tenant_url}/api/v1/users/{user_id}/lifecycle/deactivate"
     resp = request_okta(url, "POST")
     if resp.status_code == 200:
         print("deactivated the user")
@@ -79,7 +79,7 @@ def deactivate_user(user_id, user_email) -> int:
 
 def delete_user(user_id: str, user_email: str) -> int:
     print(f"Deleting User {user_email} with User-ID {user_id} from tenant")
-    url = f"https://kpmg-uk.oktapreview.com/api/v1/users/{user_id}"
+    url = f"https://{okta_tenant_url}/api/v1/users/{user_id}"
     status = get_user_status(user_id, user_email)
     if status == None:
         return print(

@@ -1,6 +1,5 @@
 import time
 from pprint import pprint
-
 import hvac
 import requests
 from dotenv import load_dotenv
@@ -8,25 +7,10 @@ from loguru import logger
 
 load_dotenv(verbose=True)
 
-# VAULT_TOKEN = os.environ["VAULT_TOKEN"]
-# VAULT_URL = os.environ["VAULT_ADDR"]
-# MOUNT_POINT = os.environ["MOUNT_POINT_TOTP"]
-
-
 VAULT_URL = "https://vault.customappsteam.co.uk"
 MOUNT_POINT = "okta-mfa"
 ROLE_ID = " "
 SECRET_ID = ""
-
-
-# def vault_authentication_client() -> hvac.Client:
-#     vault_client = hvac.Client(url=VAULT_URL, token=VAULT_TOKEN, strict_http=True)
-#     logger.info(f"Is the client authenticated: {vault_client.is_authenticated()}")
-#     if vault_client.is_authenticated():
-#         logger.info("token is valid")
-#         return vault_client
-#     raise ValueError("invalid or missing vault token")
-
 
 def vault_authentication_client():
     vault_client = hvac.Client(url=VAULT_URL, strict_http=True)

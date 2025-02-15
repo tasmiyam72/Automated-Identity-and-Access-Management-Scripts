@@ -11,8 +11,8 @@ def get_secret(key: str, WithDecryption: bool = True):
     return resp["Parameter"]["Value"]
 
 
-DSO_CLIENT_ID = get_secret(os.environ["CLIENT_ID"])
-DSO_CLIENT_SECRET = get_secret(os.environ["CLIENT_SECRET"])
+CLIENT_ID = get_secret(os.environ["CLIENT_ID"])
+CLIENT_SECRET = get_secret(os.environ["CLIENT_SECRET"])
 TENANT_ID = os.environ["TENANT_ID"]
 SCOPE = "https://graph.microsoft.com/.default"
 
@@ -51,8 +51,8 @@ def delete_app_registrations(app_ids, token):
 
 if __name__ == "__main__":
     graph_token = azure_ad_access_token(
-        DSO_CLIENT_ID=DSO_CLIENT_ID,
-        DSO_CLIENT_SECRET=DSO_CLIENT_SECRET,
+        CLIENT_ID=CLIENT_ID,
+        CLIENT_SECRET=CLIENT_SECRET,
         TENANT_ID=TENANT_ID,
         SCOPE="https://graph.microsoft.com/.default",
     )
