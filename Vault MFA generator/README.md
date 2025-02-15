@@ -1,2 +1,0 @@
-# Vault MFA Generator
-
